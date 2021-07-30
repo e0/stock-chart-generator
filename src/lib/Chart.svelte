@@ -31,8 +31,12 @@
     }
 
     setTimeout(async () => {
-      const image = chart.getConvertPictureUrl(true, 'png')
-      await uploadImage($page.params.symbol, image)
+      const imageUrl = chart.getConvertPictureUrl(true, 'png')
+      const img = new Image();
+      img.src = imageUrl;
+      document.body.appendChild(img);
+      document.getElementById('chart').remove()
+      await uploadImage($page.params.symbol, imageUrl)
     })
   }
   
