@@ -1,6 +1,8 @@
 <script>
   import { onMount } from 'svelte'
+  import { page } from '$app/stores'
   import { default as options } from '../chart/options'
+  import { uploadImage } from '../api'
 
   export let timeseries
 
@@ -28,12 +30,9 @@
       return
     }
 
-    setTimeout(() => {
-      const imageUrl = chart.getConvertPictureUrl(true, 'png')
-      const img = new Image();
-      img.src = imageUrl;
-      document.body.appendChild(img);
-      document.getElementById('chart').remove()
+    setTimeout(async () => {
+      const image = chart.getConvertPictureUrl(true, 'png')
+      await uploadImage($page.params.symbol, image)
     })
   }
   
