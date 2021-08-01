@@ -18,6 +18,7 @@
     "node": ">= 12.17.0"
   },
   "dependencies": {
-    "klinecharts": "^7.1.0"
+    "html-to-image": "^1.7.0",
+    "klinecharts": "^7.5.0"
   }
 }
