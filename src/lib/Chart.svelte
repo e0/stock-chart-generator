@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte'
+  import { toPng } from 'html-to-image'
   import { page } from '$app/stores'
   import { default as options } from '../chart/options'
   import { uploadImage } from '../api'
@@ -8,36 +9,23 @@
 
   let init
   let chart
-  let candlesDrawn = 0
-  let technicalIndicatorsDrawn = 0
   let started = false
+  let timer
 
   onMount(async () => {
     ({ init } = (await import("klinecharts/index.blank.js")).default)
   })
 
   const generateImageIfDone = () => {
-    const finishedDrawing =
-      (
-        candlesDrawn / 2 === timeseries.length
-        && technicalIndicatorsDrawn / 10 === timeseries.length
-      ) || (
-        candlesDrawn  === timeseries.length
-        && technicalIndicatorsDrawn / 5 === timeseries.length
-      )
-
-    if (!finishedDrawing) {
-      return
-    }
-
-    setTimeout(async () => {
-      const imageUrl = chart.getConvertPictureUrl(true, 'png')
+    clearTimeout(timer)
+    timer = setTimeout(async () => {
+      const imageUrl = await toPng(document.getElementById('chart'))
       const img = new Image();
       img.src = imageUrl;
       document.body.appendChild(img);
       document.getElementById('chart').remove()
       await uploadImage($page.params.symbol, imageUrl)
-    })
+    }, 20)
   }
   
 
@@ -45,16 +33,8 @@
     started = true
     chart = init(`chart`, options)
 
-    chart.subscribeAction('drawCandle', () => {
-      candlesDrawn++
-      generateImageIfDone()
-    })
-
-    chart.subscribeAction('drawTechnicalIndicator', () => {
-      technicalIndicatorsDrawn++
-      generateImageIfDone()
-    })
-
+    chart.subscribeAction('drawCandle', generateImageIfDone)
+    chart.subscribeAction('drawTechnicalIndicator', generateImageIfDone)
 
     chart.createTechnicalIndicator("MA", false, { id: "candle_pane" })
     chart.overrideTechnicalIndicator({
@@ -62,7 +42,7 @@
       calcParams: [10, 20, 50],
     })
 
-    const height = 100
+    const height = 150
     chart.createTechnicalIndicator("VOL", false, { height })
     chart.overrideTechnicalIndicator({
       name: "VOL",
@@ -80,7 +60,7 @@
 <style>
   #chart {
     width: 725px;
-    height: 500px;
-    background: white;
+    height: 850px;
+    background: #000;
   }
 </style>
