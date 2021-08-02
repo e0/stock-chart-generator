@@ -68,7 +68,7 @@ export default {
     },
     line: {
       size: 1,
-      colors: ['#FF9600', '#9D65C9', '#2196F3', '#E11D74', '#01C5C4'],
+      colors: ['#C931CC', '#FFFC4A', '#CF2E13', '#E11D74', '#01C5C4'],
     },
     circle: {
       upColor: '#71fa4c',
