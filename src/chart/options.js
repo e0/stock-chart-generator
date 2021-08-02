@@ -45,7 +45,7 @@ export default {
       values: null,
       defaultValue: 'n/a',
       text: {
-        size: 10,
+        size: 12,
         family: 'monospace',
         weight: 'normal',
         color: '#fff',
@@ -84,7 +84,7 @@ export default {
       showParams: true,
       defaultValue: 'n/a',
       text: {
-        size: 10,
+        size: 12,
         family: 'monospace',
         weight: 'normal',
         color: '#999',
@@ -108,7 +108,7 @@ export default {
       color: '#fff',
       family: 'monospace',
       weight: 'normal',
-      size: 10,
+      size: 12,
       paddingTop: 3,
       paddingBottom: 6,
     },
@@ -134,7 +134,7 @@ export default {
       color: '#51b936',
       family: 'monospace',
       weight: 'normal',
-      size: 10,
+      size: 12,
       paddingLeft: 3,
       paddingRight: 6,
     },
@@ -163,7 +163,7 @@ export default {
       text: {
         show: true,
         color: '#D9D9D9',
-        size: 10,
+        size: 12,
         family: 'monospace',
         weight: 'normal',
         paddingLeft: 2,
@@ -188,7 +188,7 @@ export default {
       text: {
         show: true,
         color: '#D9D9D9',
-        size: 10,
+        size: 12,
         family: 'monospace',
         weight: 'normal',
         paddingLeft: 2,
@@ -236,7 +236,7 @@ export default {
     },
     text: {
       color: '#2196F3',
-      size: 10,
+      size: 12,
       family: 'monospace',
       weight: 'normal',
       marginLeft: 2,
