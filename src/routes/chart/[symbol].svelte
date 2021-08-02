@@ -1,17 +1,17 @@
 <script>
   import { onMount } from 'svelte'
   import { page } from '$app/stores'
-  import { loadTimeseries } from '../../api'
+  import { loadChartData } from '../../api'
   import Chart from '../../lib/Chart.svelte'
   
-  let timeseries
+  let chartData
 
   onMount(async () => {
-    timeseries = await loadTimeseries($page.params.symbol)
+    chartData = await loadChartData($page.params.symbol)
   });
 
 </script>
 
-{#if timeseries}
-  <Chart {timeseries} />
+{#if chartData}
+  <Chart {chartData} />
 {/if}

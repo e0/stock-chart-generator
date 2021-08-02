@@ -5,7 +5,7 @@
   import { default as options } from '../chart/options'
   import { uploadImage } from '../api'
 
-  export let timeseries
+  export let chartData
 
   let init
   let chart
@@ -19,6 +19,9 @@
   const generateImageIfDone = () => {
     clearTimeout(timer)
     timer = setTimeout(async () => {
+      const { adrPct, dollarVol } = chartData
+      addKeyStats({ adrPct, dollarVol })
+
       const imageUrl = await toPng(document.getElementById('chart'))
       const img = new Image();
       img.src = imageUrl;
@@ -27,9 +30,18 @@
       await uploadImage($page.params.symbol, imageUrl)
     }, 20)
   }
+
+  const addKeyStats = ({ adrPct, dollarVol }) => {
+    const canvas = document.querySelector('canvas')
+    const ctx = canvas.getContext("2d")
+    ctx.font = '14px monospace'
+    ctx.fillStyle = '#FFF'
+    ctx.fillText(`ADR20: ${adrPct}%`, 525, 20)
+    ctx.fillText(`$VOL5: ${dollarVol}`, 525, 40)
+  }
   
 
-  $: if (init && timeseries && !started) {
+  $: if (init && chartData && !started) {
     started = true
     chart = init(`chart`, options)
 
@@ -49,7 +61,7 @@
       calcParams: [20],
     })
 
-    chart.applyNewData(timeseries.map(([open, high, low, close, volume, timestamp]) =>
+    chart.applyNewData(chartData.timeseries.map(([open, high, low, close, volume, timestamp]) =>
       ({ open, high, low, close, volume, timestamp }))
     )
   }
