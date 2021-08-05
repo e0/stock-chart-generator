@@ -5,13 +5,20 @@
   import Chart from '../../lib/Chart.svelte'
   
   let chartData
+  let timeframe
 
   onMount(async () => {
-    chartData = await loadChartData($page.params.symbol)
-  });
+    const results  = await loadChartData($page.params.symbol)
+    timeframe = $page.query.get('timeframe') || 'daily'
+
+    chartData = {
+      ...results,
+      timeseries: results.timeseries[timeframe.toLowerCase()]
+    }
+  })
 
 </script>
 
 {#if chartData}
-  <Chart {chartData} />
+  <Chart {chartData} {timeframe} />
 {/if}

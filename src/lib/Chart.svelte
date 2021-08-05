@@ -6,6 +6,7 @@
   import { uploadImage } from '../api'
 
   export let chartData
+  export let timeframe
 
   let init
   let chart
@@ -27,7 +28,7 @@
       img.src = imageUrl;
       document.body.appendChild(img);
       document.getElementById('chart').remove()
-      await uploadImage($page.params.symbol, imageUrl)
+      await uploadImage($page.params.symbol, timeframe, imageUrl)
     }, 20)
   }
 
