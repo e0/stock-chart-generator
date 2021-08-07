@@ -5,10 +5,10 @@ const loadChartData = async (symbol) => {
   return await response.json()
 }
 
-const uploadImage = async (symbol, timeframe, image) => {
+const uploadImage = async (symbol, timeframe, dateString, image) => {
   const options = { method: 'POST', body: new URLSearchParams({ image }) }
   const response = await fetch(
-    `${API_URL}/images/${symbol}/${timeframe}`,
+    `${API_URL}/images/${symbol}/${timeframe}/${dateString}`,
     options,
   )
 }

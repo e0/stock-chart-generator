@@ -20,15 +20,17 @@
   const generateImageIfDone = () => {
     clearTimeout(timer)
     timer = setTimeout(async () => {
-      const { adrPct, dollarVol } = chartData
+      const { adrPct, dollarVol, timeseries } = chartData
       addKeyStats({ adrPct, dollarVol })
+      const d = timeseries[timeseries.length - 1][5]
+      const dateString = new Date(d).toISOString().slice(0, 10)
 
       const imageUrl = await toPng(document.getElementById('chart'))
       const img = new Image();
       img.src = imageUrl;
       document.body.appendChild(img);
       document.getElementById('chart').remove()
-      await uploadImage($page.params.symbol, timeframe, imageUrl)
+      await uploadImage($page.params.symbol, timeframe, dateString, imageUrl)
     }, 20)
   }
 
