@@ -37,10 +37,13 @@
   const addKeyStats = ({ adrPct, dollarVol }) => {
     const canvas = document.querySelector('canvas')
     const ctx = canvas.getContext("2d")
-    ctx.font = '14px monospace'
+    ctx.textAlign = "right"
     ctx.fillStyle = '#FFF'
-    ctx.fillText(`ADR20: ${adrPct}%`, 525, 20)
-    ctx.fillText(`$VOL5: ${dollarVol}`, 525, 40)
+    ctx.font = 'bold 16px monospace'
+    ctx.fillText(`${$page.params.symbol.toUpperCase()} - ${timeframe}`, 650, 20)
+    ctx.font = '14px monospace'
+    ctx.fillText(`ADR20: ${adrPct}%`, 650, 50)
+    ctx.fillText(`$VOL5: ${dollarVol}`, 650, 70)
   }
   
 
