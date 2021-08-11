@@ -50,6 +50,7 @@
   $: if (init && chartData && !started) {
     started = true
     chart = init(`chart`, options)
+    chart.setTimezone('US/Eastern')
 
     chart.subscribeAction('drawCandle', generateImageIfDone)
     chart.subscribeAction('drawTechnicalIndicator', generateImageIfDone)
